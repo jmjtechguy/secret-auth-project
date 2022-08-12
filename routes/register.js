@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const md5 = require('md5')
 
 router.get('/', (req,res) => {
     res.render('register')
@@ -9,7 +10,7 @@ router.get('/', (req,res) => {
 router.post('/', (req,res) => {
     const newUser = new User({
         email: req.body.username,
-        password: req.body.password
+        password: md5(req.body.password)
     })
 
     newUser.save(err => {
